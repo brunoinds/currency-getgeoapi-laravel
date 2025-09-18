@@ -68,7 +68,8 @@ class Converter{
         $response = curl_exec($curl);
         curl_close($curl);
         $results = json_decode($response, true);
-        var_dump('Results:' . $results);
+        var_dump('Results:');
+        var_dump($results);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \Exception('Invalid JSON response: "' . json_last_error_msg(). '". The API response was: ' . $response);
         }
