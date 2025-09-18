@@ -12,6 +12,7 @@ class Converter{
     public static function convertFromTo(DateTime $date, float $amount, string $from, string $to)
     {
         $rate = Converter::fetchConvertionRate($date, $from, $to);
+        var_dump('Rate:' . $rate);
         return $rate * $amount;
     }
     private static function fetchConvertionRate(DateTime $date, string $from, string $to)
@@ -67,7 +68,7 @@ class Converter{
         $response = curl_exec($curl);
         curl_close($curl);
         $results = json_decode($response, true);
-
+        var_dump('Results:' . $results);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \Exception('Invalid JSON response: "' . json_last_error_msg(). '". The API response was: ' . $response);
         }
