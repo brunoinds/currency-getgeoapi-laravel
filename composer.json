@@ -1,5 +1,6 @@
 {
     "name": "brunoinds/currency-getgeo-api-laravel",
+    "description": "A simple PHP library for exchanging currencies based on api.getgeoapi.com",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "license": "MIT",
