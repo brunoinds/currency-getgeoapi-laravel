@@ -15,5 +15,8 @@
             "Brunoinds\\CurrencyGetGetApiLaravel\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "nesbot/carbon": "^2.0",
+        "vlucas/phpdotenv": "^5.0"
+    }
 }

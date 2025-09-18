@@ -12,7 +12,6 @@ class Converter{
     public static function convertFromTo(DateTime $date, float $amount, string $from, string $to)
     {
         $rate = Converter::fetchConvertionRate($date, $from, $to);
-        var_dump('Rate:' . $rate);
         return $rate * $amount;
     }
     private static function fetchConvertionRate(DateTime $date, string $from, string $to)
@@ -68,25 +67,17 @@ class Converter{
         $response = curl_exec($curl);
         curl_close($curl);
         $results = json_decode($response, true);
-        var_dump('Results:');
-        var_dump($results);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \Exception('Invalid JSON response: "' . json_last_error_msg(). '". The API response was: ' . $response);
         }
 
         try {
-            $rate = $results['rates'][$to];
+            $rate = $results['rates'][$to]['rate'];
             $stores[$storeKey] = (float) $rate;
-        } catch (\Throwable $th) {
-            throw new \Exception('Error while parsing the conversion rate. The API response was: ' . $response);
-        }
-
-        try {
             Converter::$store->set(json_encode($stores));
             return (float) $rate;
         } catch (\Throwable $th) {
-            throw $th;
-            throw new \Exception('Error while storing the conversion rate. If you are using a custom adapter, please make sure it is working correctly. The API response was: ' . $response);
+            throw new \Exception('Error while parsing the conversion rate. The API response was: ' . $response);
         }
     }
 }
